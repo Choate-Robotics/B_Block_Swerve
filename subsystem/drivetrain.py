@@ -3,8 +3,9 @@ from dataclasses import dataclass
 
 import rev
 from ctre.sensors import CANCoder
+
 from robotpy_toolkit_7407.motors.rev_motors import SparkMax, SparkMaxConfig
-from robotpy_toolkit_7407.motors.ctre_motors import TalonSRX, TalonConfig
+from robotpy_toolkit_7407.motors.ctre_motors import TalonFX, TalonConfig
 
 from robotpy_toolkit_7407.sensors.gyro import PigeonIMUGyro_Wrapper
 from robotpy_toolkit_7407.subsystem_templates.drivetrain import (
@@ -28,13 +29,13 @@ TURN_CONFIG = SparkMaxConfig(
     0.2, 0, 0.003, 0.00015, (-0.5, 0.5), rev.CANSparkMax.IdleMode.kBrake
 )
 MOVE_CONFIG = TalonConfig(
-    0.00005, 0, 0.0004, 0.00017
+    0.018, 0.0005, 0.5, 1023 / 22365, neutral_brake=True, integral_zone=1000, max_integral_accumulator=10000
 )
 
 
 @dataclass
 class CustomSwerveNode(SwerveNode):
-    m_move: TalonSRX
+    m_move: TalonFX
     m_turn: SparkMax
     encoder: CANCoder
     absolute_encoder_zeroed_pos: float = 0
@@ -86,28 +87,28 @@ class CustomSwerveNode(SwerveNode):
 
 class Drivetrain(SwerveDrivetrain):
     n_front_left = CustomSwerveNode(
-        TalonSRX(config.front_left_move_id, config=MOVE_CONFIG),
+        TalonFX(config.front_left_move_id, config=MOVE_CONFIG),
         SparkMax(config.front_left_turn_id, config=TURN_CONFIG),
         CANCoder(config.front_left_encoder_port),
         absolute_encoder_zeroed_pos=config.front_left_encoder_zeroed_pos,
         name="n_front_left",
     )
     n_front_right = CustomSwerveNode(
-        TalonSRX(config.front_right_move_id, config=MOVE_CONFIG),
+        TalonFX(config.front_right_move_id, config=MOVE_CONFIG),
         SparkMax(config.front_right_turn_id, config=TURN_CONFIG),
         CANCoder(config.front_right_encoder_port),
         absolute_encoder_zeroed_pos=config.front_right_encoder_zeroed_pos,
         name="n_front_right",
     )
     n_back_left = CustomSwerveNode(
-        TalonSRX(config.back_left_move_id, config=MOVE_CONFIG),
+        TalonFX(config.back_left_move_id, config=MOVE_CONFIG),
         SparkMax(config.back_left_turn_id, config=TURN_CONFIG),
         CANCoder(config.back_left_encoder_port),
         absolute_encoder_zeroed_pos=config.back_left_encoder_zeroed_pos,
         name="n_back_left",
     )
     n_back_right = CustomSwerveNode(
-        TalonSRX(config.back_right_move_id, config=MOVE_CONFIG),
+        TalonFX(config.back_right_move_id, config=MOVE_CONFIG),
         SparkMax(config.back_right_turn_id, config=TURN_CONFIG),
         CANCoder(config.back_right_encoder_port),
         absolute_encoder_zeroed_pos=config.back_right_encoder_zeroed_pos,
