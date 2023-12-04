@@ -24,3 +24,7 @@ drivetrain_reversed: bool = False
 
 # Gyro
 gyro_id = 0
+
+# Intake
+roller_id = 9
+hinge_id = 10
