@@ -1,10 +1,12 @@
+from robotpy_toolkit_7407.subsystem_templates.drivetrain import SwerveGyro
+
 import subsystem
 import sensors
 import wpilib
 
 
 class Robot:
-    pass
+    drivetrain = subsystem.Drivetrain()
 
 
 class Pneumatics:
@@ -12,4 +14,4 @@ class Pneumatics:
 
 
 class Sensors:
-    pass
+    gyro: SwerveGyro

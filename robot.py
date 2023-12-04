@@ -9,33 +9,40 @@ import sensors
 import subsystem
 import utils
 from oi.OI import OI
+from robot_systems import *
 
-from robotpy_toolkit_7407.motors import TalonFX
 
-class Robot(wpilib.TimedRobot):
+class _Robot(wpilib.TimedRobot):
     def __init__(self):
         super().__init__()
 
     def robotInit(self):
+        # Command Scheduler
+        period = .03
+        commands2.CommandScheduler.getInstance().setPeriod(period)
+
+        # Initialize subsystems
+        Robot.drivetrain.init()
+
+        # Sensors
+        Sensors.gyro = Robot.drivetrain.gyro
+
         # Initialize Operator Interface
         OI.init()
         OI.map_controls()
-        period = .03
-        commands2.CommandScheduler.getInstance().setPeriod(period)
-        
+
     def robotPeriodic(self):
         commands2.CommandScheduler.getInstance().run()
 
-    # Initialize subsystems
-
-    # Pneumatics
-
     def teleopInit(self):
-        a = ctre.VictorSPX(1)
-        a.set(ctre.ControlMode.PercentOutput, .5)
+        Robot.drivetrain.n_front_left.zero()
+        Robot.drivetrain.n_front_right.zero()
+        Robot.drivetrain.n_back_left.zero()
+        Robot.drivetrain.n_back_right.zero()
 
     def teleopPeriodic(self):
         pass
+
     def autonomousInit(self):
         pass
 
@@ -50,4 +57,4 @@ class Robot(wpilib.TimedRobot):
 
 
 if __name__ == "__main__":
-    wpilib.run(Robot)
+    wpilib.run(_Robot)
