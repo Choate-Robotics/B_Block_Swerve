@@ -2,6 +2,7 @@ import math
 from dataclasses import dataclass
 
 import rev
+from wpilib import AnalogEncoder
 from ctre.sensors import CANCoder
 
 from robotpy_toolkit_7407.motors.rev_motors import SparkMax, SparkMaxConfig
@@ -49,14 +50,9 @@ class CustomSwerveNode(SwerveNode):
     def zero(self):
         current_angle = self.get_motor_angle()
 
-        current_pos_rad = (
-                math.radians(self.encoder.getAbsolutePosition())
-                - self.absolute_encoder_zeroed_pos
-        )
+        current_pos_rot = self.encoder.getAbsolutePosition() - self.absolute_encoder_zeroed_pos
 
-        self.m_turn.set_sensor_position(
-            current_pos_rad * constants.drivetrain_turn_gear_ratio / (2 * math.pi)
-        )
+        self.m_turn.set_sensor_position(current_pos_rot * constants.drivetrain_turn_gear_ratio)
 
         self.set_motor_angle(current_angle)
 
@@ -89,29 +85,29 @@ class Drivetrain(SwerveDrivetrain):
     n_front_left = CustomSwerveNode(
         TalonFX(config.front_left_move_id, config=MOVE_CONFIG),
         SparkMax(config.front_left_turn_id, config=TURN_CONFIG),
-        CANCoder(config.front_left_encoder_port),
-        absolute_encoder_zeroed_pos=math.radians(config.front_left_encoder_zeroed_pos),
+        AnalogEncoder(config.front_left_encoder_port),
+        absolute_encoder_zeroed_pos=config.front_left_encoder_zeroed_pos,
         name="n_front_left",
     )
     n_front_right = CustomSwerveNode(
         TalonFX(config.front_right_move_id, config=MOVE_CONFIG),
         SparkMax(config.front_right_turn_id, config=TURN_CONFIG),
-        CANCoder(config.front_right_encoder_port),
-        absolute_encoder_zeroed_pos=math.radians(config.front_right_encoder_zeroed_pos),
+        AnalogEncoder(config.front_right_encoder_port),
+        absolute_encoder_zeroed_pos=config.front_right_encoder_zeroed_pos,
         name="n_front_right",
     )
     n_back_left = CustomSwerveNode(
         TalonFX(config.back_left_move_id, config=MOVE_CONFIG),
         SparkMax(config.back_left_turn_id, config=TURN_CONFIG),
-        CANCoder(config.back_left_encoder_port),
-        absolute_encoder_zeroed_pos=math.radians(config.back_left_encoder_zeroed_pos),
+        AnalogEncoder(config.back_left_encoder_port),
+        absolute_encoder_zeroed_pos=config.back_left_encoder_zeroed_pos,
         name="n_back_left",
     )
     n_back_right = CustomSwerveNode(
         TalonFX(config.back_right_move_id, config=MOVE_CONFIG),
         SparkMax(config.back_right_turn_id, config=TURN_CONFIG),
-        CANCoder(config.back_right_encoder_port),
-        absolute_encoder_zeroed_pos=math.radians(config.back_right_encoder_zeroed_pos),
+        AnalogEncoder(config.back_right_encoder_port),
+        absolute_encoder_zeroed_pos=config.back_right_encoder_zeroed_pos,
         name="n_back_right",
     )
 
