@@ -18,30 +18,3 @@ class DeployIntake(SubsystemCommand[Intake]):
     def end(self, interrupted: bool) -> None:
         pass
 
-class IntakeBall(SubsystemCommand[Intake]):
-
-    def initialize(self) -> None:
-        self.subsystem.intake()
-
-    def execute(self) -> None:
-        pass
-
-    def isFinished(self) -> bool:
-        pass
-
-    def end(self, interrupted: bool) -> None:
-        self.subsystem.stop()
-
-class ExtakeBall(SubsystemCommand[Intake]):
-
-    def initialize(self) -> None:
-        self.subsystem.extake()
-
-    def execute(self) -> None:
-        pass
-
-    def isFinished(self) -> bool:
-        pass
-
-    def end(self, interrupted: bool) -> None:
-        self.subsystem.stop()
