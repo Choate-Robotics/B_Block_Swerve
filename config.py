@@ -28,3 +28,9 @@ gyro_id = 0
 # Intake
 roller_id = 9
 hinge_id = 10
+intake_init_pos = 100
+intake_deploy_pos = 0
+intake_standard_pos = intake_init_pos
+intake_speed = 1
+intake_idle_speed = 0
+extake_speed = -1

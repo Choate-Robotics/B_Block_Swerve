@@ -1,22 +1,23 @@
 import config
 import constants
-from robotpy_toolkit_7407.motors import TalonConfig, TalonSRX
+import math
+from robotpy_toolkit_7407.motors import TalonConfig, TalonFX
 from robotpy_toolkit_7407 import Subsystem
 
 
-PID = TalonConfig(1, 0, 1, 0)
+INTAKE_CONFIG = TalonConfig(1, 0, 1, 0)
 
 class Intake(Subsystem):
 
-    roller_motor: TalonSRX = TalonSRX(config.roller_id, config=PID)
-    hinge_motor: TalonSRX = TalonSRX(config.hinge_id, config=PID)
-    deployed: bool = False
-    target: float
-    tolerance: float = 0.02
+    
 
     def __init__(self):
         super().__init__()
-        self.deployed = False
+        self.roller_motor: TalonFX = TalonFX(config.roller_id)
+        self.hinge_motor: TalonFX = TalonFX(config.hinge_id, config=INTAKE_CONFIG)
+        self.deployed: bool = False
+        self.target: float
+        self.tolerance: float = 0.5 #degrees
 
     def init(self):
         self.roller_motor.init()
@@ -33,23 +34,20 @@ class Intake(Subsystem):
         self.hinge_motor.set_target_position(self.target)
         self.deployed = False
 
-    def intake(self):
-        self.roller_motor.set_target_velocity(constants.intake_speed)
+    def set_intake_angle(self, angle: float):
+        # angle param: degrees
+        self.hinge_motor.set_target_position(math.radians(angle) * constants.intake_gear_ratio)
 
-    def extake(self):
-        self.roller_motor.set_target_velocity(-constants.intake_speed)
-
-    def stop(self):
-        self.roller_motor.set_target_velocity(0)
-
-    def isDeployed(self):
-        return self.deployed
+    def set_roller_velocity(self, speed):
+        self.roller_motor.set_target_velocity(speed)
     
-    def getIntakePosition(self):
-        return self.hinge_motor.get_sensor_position()
+    def get_intake_angle(self):
+        # Returns angle in degrees
+        return self.hinge_motor.get_sensor_position() / constants.intake_gear_ratio
+        
+    def is_at_angle(self, angle):
+        #angle param: degrees
+        return abs(math.degrees(self.get_intake_angle()) - angle) < self.tolerance
     
-    def getTargetPosition(self):
-        return self.target
-    
-    def getRollerVelocity(self):
+    def get_roller_velocity(self):
         return self.roller_motor.get_sensor_velocity()
