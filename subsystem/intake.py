@@ -19,24 +19,20 @@ class Intake(Subsystem):
         self.target: float
         self.tolerance: float = math.radians(0.5) #radians
 
+    def zero_intake(self):
+        self.hinge_motor.set_sensor_position(0)
+
     def init(self):
         self.roller_motor.init()
         self.hinge_motor.init()
-        self.hinge_motor.set_sensor_position(config.intake_init_pos)
-
-    def deploy(self):
-        self.target = config.intake_deploy_pos
-        self.hinge_motor.set_target_position(self.target)
-        self.deployed = True
-
-    def retract(self):
-        self.target = config.intake_retract_pos
-        self.hinge_motor.set_target_position(self.target)
-        self.deployed = False
+        self.zero_intake()
 
     def set_intake_angle(self, angle):
         # angle param: radians
         self.hinge_motor.set_target_position(angle * constants.intake_gear_ratio)
+
+    def rotate_intake(self, speed):
+        self.hinge_motor.set_target_velocity(speed)
 
     def set_roller_velocity(self, speed):
         self.roller_motor.set_target_velocity(speed)
