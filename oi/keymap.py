@@ -36,12 +36,4 @@ class Keymap:
         DEPLOY_INTAKE = commands2.button.Button(
             lambda: Controllers.OPERATOR_CONTROLLER.getRawAxis(-controllerOPERATOR.RT) > 0.5
         )
-        ZERO_INTAKE = commands2.button.JoystickButton(
-            Joysticks.joysticks[Controllers.OPERATOR], controllerOPERATOR.B
-        )
-        INTAKE_UP = commands2.button.JoystickButton(
-            Joysticks.joysticks[Controllers.OPERATOR], controllerOPERATOR.Y
-        )
-        INTAKE_DOWN = commands2.button.JoystickButton(
-            Joysticks.joysticks[Controllers.OPERATOR], controllerOPERATOR.A
-        )
+        

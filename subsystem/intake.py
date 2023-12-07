@@ -31,9 +31,6 @@ class Intake(Subsystem):
         # angle param: radians
         self.hinge_motor.set_target_position(angle * constants.intake_gear_ratio)
 
-    def rotate_intake(self, speed):
-        self.hinge_motor.set_target_velocity(speed)
-
     def set_roller_velocity(self, speed):
         self.roller_motor.set_target_velocity(speed)
     

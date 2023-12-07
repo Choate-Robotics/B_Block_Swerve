@@ -24,16 +24,5 @@ class OI:
             Robot.intake.set_intake_angle(math.radians(config.intake_standard_pos))
             Robot.intake.set_roller_velocity(config.intake_idle_speed)
 
-        def intake_rotate(speed):
-            Robot.intake.rotate_intake(speed)
-
-        def zero_intake():
-            Robot.intake.zero_intake()
 
         Keymap.Intake.DEPLOY_INTAKE.whileTrue(InstantCommand(intake_deploy)).onFalse(InstantCommand(intake_idle))
-
-        Keymap.Intake.ZERO_INTAKE.onTrue(zero_intake)
-
-        Keymap.Intake.INTAKE_UP.whileTrue(InstantCommand(intake_rotate(config.intake_roller_speed))).onFalse(InstantCommand(intake_rotate(0)))
-
-        Keymap.Intake.INTAKE_DOWN.whileTrue(InstantCommand(intake_rotate(-config.intake_roller_speed))).onFalse(InstantCommand(intake_rotate(0)))

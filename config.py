@@ -33,5 +33,3 @@ intake_deploy_pos = 0
 intake_standard_pos = intake_init_pos
 intake_roller_speed = 1
 intake_idle_speed = 0
-intake_hinge_speed = 0.25
-intake_hinge_idle_speed = 0
