@@ -3,6 +3,7 @@ from subsystem import Intake
 import config
 import math
 
+
 class SetIntake(SubsystemCommand[Intake]):
     def __init__(self, subsystem: Intake, angle):
         super().__init__(subsystem)
@@ -17,9 +18,10 @@ class SetIntake(SubsystemCommand[Intake]):
 
     def isFinished(self):
         return self.subsystem.is_at_angle(self.angle)
-    
+
     def end(self, interrupted):
         self.subsystem.set_intake_angle(self.subsystem.get_intake_angle())
+
 
 class IntakeRoller(SubsystemCommand[Intake]):
     def __init__(self, subsystem: Intake, speed: float):
