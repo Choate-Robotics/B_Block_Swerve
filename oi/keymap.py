@@ -31,3 +31,9 @@ class Keymap:
         X_MODE = commands2.button.JoystickButton(
             Joysticks.joysticks[Controllers.DRIVER], controllerDRIVER.X
         )
+
+    class Intake:
+        DEPLOY_INTAKE = commands2.button.Button(
+            lambda: Controllers.OPERATOR_CONTROLLER.getRawAxis(-controllerOPERATOR.RT) > 0.5
+        )
+        

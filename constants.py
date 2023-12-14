@@ -1,3 +1,4 @@
+
 # Drivetrain
 drivetrain_turn_gear_ratio = 0
 drivetrain_move_gear_ratio = 0
@@ -6,3 +7,6 @@ track_width = 0
 drivetrain_max_vel = 0
 drivetrain_max_target_accel = 0
 drivetrain_max_angular_vel = 0
+
+#Intake
+intake_gear_ratio = 100 / 1
