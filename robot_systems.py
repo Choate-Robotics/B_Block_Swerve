@@ -4,7 +4,8 @@ import wpilib
 
 
 class Robot:
-    pass
+    
+    intake = subsystem.Intake()
 
 
 class Pneumatics:
