@@ -81,6 +81,14 @@ class CustomSwerveNode(SwerveNode):
                 self.m_move.get_sensor_velocity()
                 / constants.drivetrain_move_gear_ratio_as_rotations_per_meter
         )
+    
+    def get_drive_motor_traveled_distance(self) -> meters:
+        sensor_position = self.m_move.get_sensor_position()
+        # print(self.name, sensor_position / constants.drivetrain_move_gear_ratio_as_rotations_per_meter * -1)
+        return (
+            (sensor_position
+            / constants.drivetrain_move_gear_ratio_as_rotations_per_meter)
+        )
 
 
 class Drivetrain(SwerveDrivetrain):

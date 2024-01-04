@@ -26,7 +26,19 @@ class _Robot(wpilib.TimedRobot):
         commands2.CommandScheduler.getInstance().setPeriod(period)
 
         # Initialize subsystems
-        # Robot.drivetrain.init()
+        Robot.drivetrain.init()
+        # for i in range(30):
+        #     Robot.drivetrain.n_front_left.m_turn.init()
+
+        # for i in range(30):
+        #     Robot.drivetrain.n_front_right.m_turn.init()
+        
+        # for i in range(30):
+        #     Robot.drivetrain.n_back_left.m_turn.init()
+
+        # for i in range(30):
+        #     Robot.drivetrain.n_back_right.m_turn.init()
+
 
         # Sensors
         Sensors.gyro = Robot.drivetrain.gyro
@@ -37,29 +49,32 @@ class _Robot(wpilib.TimedRobot):
 
     def robotPeriodic(self):
         # Gyro
-        # SmartDashboard.putNumber("Gyro Angle", Robot.drivetrain.gyro.get_robot_heading().degrees())
+        SmartDashboard.putNumber("Gyro Angle", Robot.drivetrain.gyro.get_robot_heading())
 
         # Encoder positions
-        SmartDashboard.putNumber("Front Left Encoder", Robot.drivetrain.n_front_left.encoder.getAbsolutePosition())
-        SmartDashboard.putNumber("Front Right Encoder", Robot.drivetrain.n_front_right.encoder.getAbsolutePosition())
-        SmartDashboard.putNumber("Back Left Encoder", Robot.drivetrain.n_back_left.encoder.getAbsolutePosition())
-        SmartDashboard.putNumber("Back Right Encoder", Robot.drivetrain.n_back_right.encoder.getAbsolutePosition())
+        SmartDashboard.putNumber("Front Left Encoder", math.degrees(Robot.drivetrain.n_front_left.encoder.getAbsolutePosition()))
+        SmartDashboard.putNumber("Front Right Encoder", math.degrees(Robot.drivetrain.n_front_right.encoder.getAbsolutePosition()))
+        SmartDashboard.putNumber("Back Left Encoder", math.degrees(Robot.drivetrain.n_back_left.encoder.getAbsolutePosition()))
+        SmartDashboard.putNumber("Back Right Encoder", math.degrees(Robot.drivetrain.n_back_right.encoder.getAbsolutePosition()))
 
-        # Motor angle
-        SmartDashboard.putNumber("Front Left Motor Angle", Robot.drivetrain.n_front_left.get_turn_motor_angle().degrees())
-        SmartDashboard.putNumber("Front Right Motor Angle", Robot.drivetrain.n_front_right.get_turn_motor_angle().degrees())
-        SmartDashboard.putNumber("Back Left Motor Angle", Robot.drivetrain.n_back_left.get_turn_motor_angle().degrees())
-        SmartDashboard.putNumber("Back Right Motor Angle", Robot.drivetrain.n_back_right.get_turn_motor_angle().degrees())
+        # # Motor angle
+        SmartDashboard.putNumber("Front Left Motor Angle", math.degrees(Robot.drivetrain.n_front_left.get_turn_motor_angle()))
+        SmartDashboard.putNumber("Front Right Motor Angle", math.degrees(Robot.drivetrain.n_front_right.get_turn_motor_angle()))
+        SmartDashboard.putNumber("Back Left Motor Angle", math.degrees(Robot.drivetrain.n_back_left.get_turn_motor_angle()))
+        SmartDashboard.putNumber("Back Right Motor Angle", math.degrees(Robot.drivetrain.n_back_right.get_turn_motor_angle()))
 
-        # Motor velocity
-        SmartDashboard.putNumber("Front Left Motor Velocity", Robot.drivetrain.n_front_left.get_motor_velocity())
-        SmartDashboard.putNumber("Front Right Motor Velocity", Robot.drivetrain.n_front_right.get_motor_velocity())
-        SmartDashboard.putNumber("Back Left Motor Velocity", Robot.drivetrain.n_back_left.get_motor_velocity())
-        SmartDashboard.putNumber("Back Right Motor Velocity", Robot.drivetrain.n_back_right.get_motor_velocity())
+        # # Motor velocity
+        # SmartDashboard.putNumber("Front Left Motor Velocity", Robot.drivetrain.n_front_left.get_motor_velocity())
+        # SmartDashboard.putNumber("Front Right Motor Velocity", Robot.drivetrain.n_front_right.get_motor_velocity())
+        # SmartDashboard.putNumber("Back Left Motor Velocity", Robot.drivetrain.n_back_left.get_motor_velocity())
+        # SmartDashboard.putNumber("Back Right Motor Velocity", Robot.drivetrain.n_back_right.get_motor_velocity())
+
+        print(Robot.drivetrain.n_front_left.m_turn.get_sensor_position())
 
         commands2.CommandScheduler.getInstance().run()
 
     def teleopInit(self):
+        Robot.drivetrain.n_front_left.set_motor_angle(math.pi/2)
         pass
         # Test gyro
         # Robot.drivetrain.gyro.reset_angle()
