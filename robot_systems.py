@@ -7,7 +7,7 @@ import wpilib
 
 class Robot:
     drivetrain = subsystem.Drivetrain()
-    intake = subsystem.Intake()
+    # intake = subsystem.Intake()
 
 
 class Pneumatics:
@@ -16,3 +16,4 @@ class Pneumatics:
 
 class Sensors:
     gyro: SwerveGyro
+    pass

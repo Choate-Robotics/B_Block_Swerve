@@ -26,7 +26,7 @@ back_left_encoder_zeroed_pos = 0
 
 back_right_move_id = 8
 back_right_turn_id = 9
-back_right_encoder_port = 9
+back_right_encoder_port = 7
 back_right_encoder_zeroed_pos = 0
 
 driver_centric: bool = True

@@ -1,6 +1,7 @@
 import math
 from dataclasses import dataclass
 
+import ctre.sensors
 import rev
 from wpilib import AnalogEncoder
 from ctre.sensors import CANCoder
@@ -25,6 +26,7 @@ import config
 import constants
 from oi.keymap import Keymap
 from units.SI import degrees, meters_per_second_squared
+from utils import PigeonIMUGyro_Wrapper
 
 TURN_CONFIG = SparkMaxConfig(
     0.2, 0, 0.003, 0.00015, (-0.5, 0.5), rev.CANSparkMax.IdleMode.kBrake
@@ -38,7 +40,7 @@ MOVE_CONFIG = TalonConfig(
 class CustomSwerveNode(SwerveNode):
     m_move: TalonFX
     m_turn: SparkMax
-    encoder: CANCoder
+    encoder: AnalogEncoder
     absolute_encoder_zeroed_pos: float = 0
     name: str = "DefaultNode"
 
@@ -48,7 +50,7 @@ class CustomSwerveNode(SwerveNode):
         self.m_turn.init()
 
     def zero(self):
-        current_angle = self.get_motor_angle()
+        current_angle = self.get_turn_motor_angle()
 
         current_pos_rot = self.encoder.getAbsolutePosition() - self.absolute_encoder_zeroed_pos
 
@@ -64,7 +66,7 @@ class CustomSwerveNode(SwerveNode):
             (pos / (2 * math.pi)) * constants.drivetrain_turn_gear_ratio
         )
 
-    def get_motor_angle(self) -> radians:
+    def get_turn_motor_angle(self) -> radians:
         return (
                 (self.m_turn.get_sensor_position() / constants.drivetrain_turn_gear_ratio)
                 * 2
@@ -82,20 +84,6 @@ class CustomSwerveNode(SwerveNode):
 
 
 class Drivetrain(SwerveDrivetrain):
-    n_front_left = CustomSwerveNode(
-        TalonFX(config.front_left_move_id, config=MOVE_CONFIG),
-        SparkMax(config.front_left_turn_id, config=TURN_CONFIG),
-        AnalogEncoder(config.front_left_encoder_port),
-        absolute_encoder_zeroed_pos=config.front_left_encoder_zeroed_pos,
-        name="n_front_left",
-    )
-    n_front_right = CustomSwerveNode(
-        TalonFX(config.front_right_move_id, config=MOVE_CONFIG),
-        SparkMax(config.front_right_turn_id, config=TURN_CONFIG),
-        AnalogEncoder(config.front_right_encoder_port),
-        absolute_encoder_zeroed_pos=config.front_right_encoder_zeroed_pos,
-        name="n_front_right",
-    )
     n_back_left = CustomSwerveNode(
         TalonFX(config.back_left_move_id, config=MOVE_CONFIG),
         SparkMax(config.back_left_turn_id, config=TURN_CONFIG),
@@ -109,6 +97,21 @@ class Drivetrain(SwerveDrivetrain):
         AnalogEncoder(config.back_right_encoder_port),
         absolute_encoder_zeroed_pos=config.back_right_encoder_zeroed_pos,
         name="n_back_right",
+    )
+    n_front_left = CustomSwerveNode(
+        TalonFX(config.front_left_move_id, config=MOVE_CONFIG),
+        SparkMax(config.front_left_turn_id, config=TURN_CONFIG),
+        AnalogEncoder(config.front_left_encoder_port),
+        absolute_encoder_zeroed_pos=config.front_left_encoder_zeroed_pos,
+        name="n_front_left",
+    )
+    n_front_right = CustomSwerveNode(
+
+        TalonFX(config.front_right_move_id, config=MOVE_CONFIG),
+        SparkMax(config.front_right_turn_id, config=TURN_CONFIG),
+        AnalogEncoder(config.front_right_encoder_port),
+        absolute_encoder_zeroed_pos=config.front_right_encoder_zeroed_pos,
+        name="n_front_right",
     )
 
     gyro: PigeonIMUGyro_Wrapper = PigeonIMUGyro_Wrapper(config.gyro_id)
