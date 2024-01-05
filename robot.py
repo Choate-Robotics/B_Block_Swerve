@@ -73,7 +73,7 @@ class _Robot(wpilib.TimedRobot):
         # print("BACK LEFT ABS POS", Robot.drivetrain.n_back_left.m_turn.get_sensor_position())
         # print("BACK RIGHT ABS POS", Robot.drivetrain.n_back_right.m_turn.get_sensor_position())
 
-        print(Robot.drivetrain.n_front_left.m_move.get_sensor_position())
+        # print(Robot.intake.get_intake_angle())
         commands2.CommandScheduler.getInstance().run()
 
     def teleopInit(self):
@@ -84,6 +84,7 @@ class _Robot(wpilib.TimedRobot):
         Robot.drivetrain.n_back_left.set_motor_angle(math.radians(0))
         Robot.drivetrain.n_back_right.set_motor_angle(math.radians(0))
 
+        # Robot.intake.set_intake_angle(math.radians(90))
         # commands2.CommandScheduler.getInstance().schedule(
         #     command.DrivetrainZero(Robot.drivetrain).andThen(
         #         command.DriveSwerveCustom(Robot.drivetrain)
