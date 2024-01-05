@@ -1,15 +1,12 @@
 import math
 from dataclasses import dataclass
 
-import ctre.sensors
 import rev
 from wpilib import AnalogEncoder
-from ctre.sensors import CANCoder
 
 from robotpy_toolkit_7407.motors.rev_motors import SparkMax, SparkMaxConfig
 from robotpy_toolkit_7407.motors.ctre_motors import TalonFX, TalonConfig
 
-from robotpy_toolkit_7407.sensors.gyro import PigeonIMUGyro_Wrapper
 from robotpy_toolkit_7407.subsystem_templates.drivetrain import (
     SwerveDrivetrain,
     SwerveNode,
@@ -74,7 +71,7 @@ class CustomSwerveNode(SwerveNode):
         )
 
     def set_motor_velocity(self, vel: meters_per_second):
-        self.m_move.set_target_velocity(vel * constants.drivetrain_move_gear_ratio)
+        self.m_move.set_target_velocity(vel * constants.drivetrain_move_gear_ratio_as_rotations_per_meter)
 
     def get_motor_velocity(self) -> radians_per_second:
         return (

@@ -39,7 +39,6 @@ class _Robot(wpilib.TimedRobot):
         # for i in range(30):
         #     Robot.drivetrain.n_back_right.m_turn.init()
 
-
         # Sensors
         Sensors.gyro = Robot.drivetrain.gyro
 
@@ -57,13 +56,13 @@ class _Robot(wpilib.TimedRobot):
         SmartDashboard.putNumber("Back Left Encoder", math.degrees(Robot.drivetrain.n_back_left.encoder.getAbsolutePosition()))
         SmartDashboard.putNumber("Back Right Encoder", math.degrees(Robot.drivetrain.n_back_right.encoder.getAbsolutePosition()))
 
-        # # Motor angle
+        # Motor angle
         SmartDashboard.putNumber("Front Left Motor Angle", math.degrees(Robot.drivetrain.n_front_left.get_turn_motor_angle()))
         SmartDashboard.putNumber("Front Right Motor Angle", math.degrees(Robot.drivetrain.n_front_right.get_turn_motor_angle()))
         SmartDashboard.putNumber("Back Left Motor Angle", math.degrees(Robot.drivetrain.n_back_left.get_turn_motor_angle()))
         SmartDashboard.putNumber("Back Right Motor Angle", math.degrees(Robot.drivetrain.n_back_right.get_turn_motor_angle()))
 
-        # # Motor velocity
+        # Motor velocity
         # SmartDashboard.putNumber("Front Left Motor Velocity", Robot.drivetrain.n_front_left.get_motor_velocity())
         # SmartDashboard.putNumber("Front Right Motor Velocity", Robot.drivetrain.n_front_right.get_motor_velocity())
         # SmartDashboard.putNumber("Back Left Motor Velocity", Robot.drivetrain.n_back_left.get_motor_velocity())
@@ -74,8 +73,6 @@ class _Robot(wpilib.TimedRobot):
         commands2.CommandScheduler.getInstance().run()
 
     def teleopInit(self):
-        Robot.drivetrain.n_front_left.set_motor_angle(math.pi/2)
-        pass
         # Test gyro
         # Robot.drivetrain.gyro.reset_angle()
 
@@ -92,10 +89,10 @@ class _Robot(wpilib.TimedRobot):
         # Robot.drivetrain.n_back_right.raw_output(0.5)
 
         # Test set motor angle
-        # Robot.drivetrain.n_front_left.set_motor_angle(math.radians(90))
-        # Robot.drivetrain.n_front_right.set_motor_angle(math.radians(90))
-        # Robot.drivetrain.n_back_left.set_motor_angle(math.radians(90))
-        # Robot.drivetrain.n_back_right.set_motor_angle(math.radians(90))
+        Robot.drivetrain.n_front_left.set_motor_angle(math.radians(90))
+        Robot.drivetrain.n_front_right.set_motor_angle(math.radians(90))
+        Robot.drivetrain.n_back_left.set_motor_angle(math.radians(90))
+        Robot.drivetrain.n_back_right.set_motor_angle(math.radians(90))
 
         # Test set motor velocity
         # Robot.drivetrain.n_front_left.set_motor_velocity(0.5)
@@ -107,6 +104,10 @@ class _Robot(wpilib.TimedRobot):
         #     command.DrivetrainZero(Robot.drivetrain).andThen(
         #         command.DriveSwerveCustom(Robot.drivetrain)
         #     )
+        # )
+
+        # commands2.CommandScheduler.getInstance().schedule(
+        #     command.DriveSwerveCustom(Robot.drivetrain)
         # )
 
     def teleopPeriodic(self):
