@@ -53,7 +53,7 @@ class CustomSwerveNode(SwerveNode):
 
         self.m_turn.set_sensor_position(current_pos_rot * constants.drivetrain_turn_gear_ratio)
 
-        self.set_motor_angle(current_angle)
+        self.set_motor_angle(0)
 
     def raw_output(self, power):
         self.m_move.set_raw_output(power)

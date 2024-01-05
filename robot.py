@@ -77,32 +77,12 @@ class _Robot(wpilib.TimedRobot):
         commands2.CommandScheduler.getInstance().run()
 
     def teleopInit(self):
-        # Test gyro
         Robot.drivetrain.gyro.reset_angle()
 
-        # Test zeroing
-        # Robot.drivetrain.n_front_left.zero()
-        # Robot.drivetrain.n_front_right.zero()
-        # Robot.drivetrain.n_back_left.zero()
-        # Robot.drivetrain.n_back_right.zero()
-
-        # Test raw output DONE
-        # Robot.drivetrain.n_front_left.raw_output(0.5)
-        # Robot.drivetrain.n_front_right.raw_output(0.5)
-        # Robot.drivetrain.n_back_left.raw_output(0.5)
-        # Robot.drivetrain.n_back_right.raw_output(0.5)
-
-        # Test set motor angle DONE
         Robot.drivetrain.n_front_left.set_motor_angle(math.radians(0))
         Robot.drivetrain.n_front_right.set_motor_angle(math.radians(0))
         Robot.drivetrain.n_back_left.set_motor_angle(math.radians(0))
         Robot.drivetrain.n_back_right.set_motor_angle(math.radians(0))
-
-        # Test set motor velocity
-        # Robot.drivetrain.n_front_left.set_motor_velocity(0.5)
-        # Robot.drivetrain.n_front_right.set_motor_velocity(0.5)
-        # Robot.drivetrain.n_back_left.set_motor_velocity(0.5)
-        # Robot.drivetrain.n_back_right.set_motor_velocity(0.5)
 
         # commands2.CommandScheduler.getInstance().schedule(
         #     command.DrivetrainZero(Robot.drivetrain).andThen(

@@ -29,7 +29,7 @@ class DriveSwerveCustom(SubsystemCommand[Drivetrain]):
         dx, dy, d_theta = (
             self.subsystem.axis_dx.value * (-1 if config.drivetrain_reversed else 1),
             self.subsystem.axis_dy.value * (-1 if config.drivetrain_reversed else 1),
-            -self.subsystem.axis_rotation.value,
+            -self.subsystem.axis_rotation.value * (-1 if config.drivetrain_reversed else 1)
         )
 
         if abs(d_theta) < 0.11:
