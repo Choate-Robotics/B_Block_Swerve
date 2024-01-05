@@ -51,10 +51,10 @@ class _Robot(wpilib.TimedRobot):
         SmartDashboard.putNumber("Gyro Angle", Robot.drivetrain.gyro.get_robot_heading())
 
         # Encoder positions
-        SmartDashboard.putNumber("Front Left Encoder", math.degrees(Robot.drivetrain.n_front_left.encoder.getAbsolutePosition()))
-        SmartDashboard.putNumber("Front Right Encoder", math.degrees(Robot.drivetrain.n_front_right.encoder.getAbsolutePosition()))
-        SmartDashboard.putNumber("Back Left Encoder", math.degrees(Robot.drivetrain.n_back_left.encoder.getAbsolutePosition()))
-        SmartDashboard.putNumber("Back Right Encoder", math.degrees(Robot.drivetrain.n_back_right.encoder.getAbsolutePosition()))
+        SmartDashboard.putNumber("Front Left Encoder", Robot.drivetrain.n_front_left.encoder.getAbsolutePosition())
+        SmartDashboard.putNumber("Front Right Encoder", Robot.drivetrain.n_front_right.encoder.getAbsolutePosition())
+        SmartDashboard.putNumber("Back Left Encoder", Robot.drivetrain.n_back_left.encoder.getAbsolutePosition())
+        SmartDashboard.putNumber("Back Right Encoder", Robot.drivetrain.n_back_right.encoder.getAbsolutePosition())
 
         # Motor angle
         SmartDashboard.putNumber("Front Left Motor Angle", math.degrees(Robot.drivetrain.n_front_left.get_turn_motor_angle()))
@@ -68,13 +68,17 @@ class _Robot(wpilib.TimedRobot):
         # SmartDashboard.putNumber("Back Left Motor Velocity", Robot.drivetrain.n_back_left.get_motor_velocity())
         # SmartDashboard.putNumber("Back Right Motor Velocity", Robot.drivetrain.n_back_right.get_motor_velocity())
 
-        print(Robot.drivetrain.n_front_left.m_turn.get_sensor_position())
+        # print("FRONT LEFT ABS POS", Robot.drivetrain.n_front_left.m_turn.get_sensor_position())
+        # print("FRONT RIGHT ABS POS", Robot.drivetrain.n_front_right.m_turn.get_sensor_position())
+        # print("BACK LEFT ABS POS", Robot.drivetrain.n_back_left.m_turn.get_sensor_position())
+        # print("BACK RIGHT ABS POS", Robot.drivetrain.n_back_right.m_turn.get_sensor_position())
 
+        print(Robot.drivetrain.n_front_left.m_move.get_sensor_position())
         commands2.CommandScheduler.getInstance().run()
 
     def teleopInit(self):
         # Test gyro
-        # Robot.drivetrain.gyro.reset_angle()
+        Robot.drivetrain.gyro.reset_angle()
 
         # Test zeroing
         # Robot.drivetrain.n_front_left.zero()
@@ -82,17 +86,17 @@ class _Robot(wpilib.TimedRobot):
         # Robot.drivetrain.n_back_left.zero()
         # Robot.drivetrain.n_back_right.zero()
 
-        # Test raw output
+        # Test raw output DONE
         # Robot.drivetrain.n_front_left.raw_output(0.5)
         # Robot.drivetrain.n_front_right.raw_output(0.5)
         # Robot.drivetrain.n_back_left.raw_output(0.5)
         # Robot.drivetrain.n_back_right.raw_output(0.5)
 
-        # Test set motor angle
-        Robot.drivetrain.n_front_left.set_motor_angle(math.radians(90))
-        Robot.drivetrain.n_front_right.set_motor_angle(math.radians(90))
-        Robot.drivetrain.n_back_left.set_motor_angle(math.radians(90))
-        Robot.drivetrain.n_back_right.set_motor_angle(math.radians(90))
+        # Test set motor angle DONE
+        Robot.drivetrain.n_front_left.set_motor_angle(math.radians(0))
+        Robot.drivetrain.n_front_right.set_motor_angle(math.radians(0))
+        Robot.drivetrain.n_back_left.set_motor_angle(math.radians(0))
+        Robot.drivetrain.n_back_right.set_motor_angle(math.radians(0))
 
         # Test set motor velocity
         # Robot.drivetrain.n_front_left.set_motor_velocity(0.5)
@@ -106,9 +110,9 @@ class _Robot(wpilib.TimedRobot):
         #     )
         # )
 
-        # commands2.CommandScheduler.getInstance().schedule(
-        #     command.DriveSwerveCustom(Robot.drivetrain)
-        # )
+        commands2.CommandScheduler.getInstance().schedule(
+            command.DriveSwerveCustom(Robot.drivetrain)
+        )
 
     def teleopPeriodic(self):
         pass

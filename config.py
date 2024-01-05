@@ -12,22 +12,22 @@ from units.SI import (
 front_left_move_id = 4
 front_left_turn_id = 5
 front_left_encoder_port = 1
-front_left_encoder_zeroed_pos = 0
+front_left_encoder_zeroed_pos = 3.0514
 
 front_right_move_id = 6
 front_right_turn_id = 7
 front_right_encoder_port = 0
-front_right_encoder_zeroed_pos = 0
+front_right_encoder_zeroed_pos = 3.023127
 
 back_left_move_id = 2
 back_left_turn_id = 3
 back_left_encoder_port = 2
-back_left_encoder_zeroed_pos = 0
+back_left_encoder_zeroed_pos = 2.97
 
 back_right_move_id = 8
 back_right_turn_id = 9
 back_right_encoder_port = 7
-back_right_encoder_zeroed_pos = 0
+back_right_encoder_zeroed_pos = 2.9912
 
 driver_centric: bool = True
 drivetrain_reversed: bool = False
